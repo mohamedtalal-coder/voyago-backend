@@ -10,6 +10,9 @@ const {
 } = require("../controllers/authController");
 const passport = require("passport"); 
 
+// Frontend URL for redirects
+const FRONTEND_URL = process.env.FRONTEND_URL || "https://voyago-black.vercel.app";
+
 // Google OAuth Routes
 router.get(
   "/google",
@@ -20,16 +23,16 @@ router.get(
   "/google/callback",
   (req, res, next) => {
     passport.authenticate("google", {
-      failureRedirect: `http://localhost:5173/auth/callback?error=true`,
+      failureRedirect: `${FRONTEND_URL}/auth/callback?error=true`,
       session: false,
     }, (err, user, info) => {
       if (err) {
         console.error("Google OAuth Error:", err);
-        return res.redirect(`http://localhost:5173/auth/callback?error=true&message=${encodeURIComponent(err.message)}`);
+        return res.redirect(`${FRONTEND_URL}/auth/callback?error=true&message=${encodeURIComponent(err.message)}`);
       }
       if (!user) {
         console.error("Google OAuth: No user returned", info);
-        return res.redirect(`http://localhost:5173/auth/callback?error=true&message=authentication_failed`);
+        return res.redirect(`${FRONTEND_URL}/auth/callback?error=true&message=authentication_failed`);
       }
       
       // Generate JWT to send back to client
@@ -38,7 +41,7 @@ router.get(
       const isAdmin = user.isAdmin ? 'true' : 'false';
 
       res.redirect(
-        `http://localhost:5173/auth/callback?token=${token}&name=${encodeURIComponent(user.name)}&email=${encodeURIComponent(user.email)}&avatar=${avatar}&isAdmin=${isAdmin}&_id=${user._id}`
+        `${FRONTEND_URL}/auth/callback?token=${token}&name=${encodeURIComponent(user.name)}&email=${encodeURIComponent(user.email)}&avatar=${avatar}&isAdmin=${isAdmin}&_id=${user._id}`
       );
     })(req, res, next);
   }
