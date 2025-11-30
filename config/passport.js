@@ -1,7 +1,7 @@
 // /server/config/passport.js
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const User = require('../models/User'); // Reuse your existing User model
+const User = require('../models/user'); // Reuse your existing User model
 
 // 1. Serialize User (Required by Passport for session management, even if we use JWT later)
 passport.serializeUser((user, done) => {
