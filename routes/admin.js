@@ -4,7 +4,7 @@ const TourPackage = require("../models/TourPackage");
 const Review = require("../models/Review");
 const Contact = require("../models/Contact");
 const Stat = require("../models/Stat");
-const User = require("../models/user");
+const User = require("../models/User");
 const Service = require("../models/Service");
 
 // Dashboard
