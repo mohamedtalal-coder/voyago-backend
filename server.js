@@ -6,7 +6,7 @@ const cors = require("cors");
 const path = require("path");
 const passport = require("passport");
 const session = require("express-session");
-const configurePassport = require("./config/Passport");
+const configurePassport = require("./config/passport");
 
 const tourPackageRoutes = require('./routes/tourPackages');
 const serviceRoutes = require('./routes/services');
