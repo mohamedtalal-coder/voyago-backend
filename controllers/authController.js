@@ -126,7 +126,11 @@ const generateToken = (id) => {
 
 const registerUser = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, role } = req.body;
+
+
+    const isAdmin = role === 'admin';
+    isAdmin:isAdmin
 
     // Validate all fields
     const nameValidation = validateName(name);
@@ -176,6 +180,7 @@ const registerUser = async (req, res) => {
       name: sanitizedName,
       email: normalizedEmail,
       password: hashedPassword,
+      isAdmin:isAdmin,
     });
 
     if (user) {
