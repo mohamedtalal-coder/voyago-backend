@@ -1,9 +1,6 @@
 const router = require("express").Router();
 const Stat = require("../models/Stat");
 
-// @desc    Get all stats
-// @route   GET /api/stats
-// @access  Public
 router.get("/", async (req, res) => {
   try {
     const stats = await Stat.find().sort({ order: 1 });
@@ -13,9 +10,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-// @desc    Update a stat
-// @route   PUT /api/stats/:key
-// @access  Private (should be admin)
 router.put("/:key", async (req, res) => {
   try {
     const { value, labelKey, icon, order } = req.body;

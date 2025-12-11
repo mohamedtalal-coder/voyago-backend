@@ -1,9 +1,6 @@
 const router = require("express").Router();
 const Contact = require("../models/Contact");
 
-// @desc    Submit a contact form
-// @route   POST /api/contact
-// @access  Public
 router.post("/", async (req, res) => {
   try {
     const { name, email, subject, message } = req.body;
@@ -12,7 +9,6 @@ router.post("/", async (req, res) => {
       return res.status(400).json({ message: "Name, email, and message are required" });
     }
 
-    // Basic email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return res.status(400).json({ message: "Please provide a valid email address" });
@@ -34,9 +30,6 @@ router.post("/", async (req, res) => {
   }
 });
 
-// @desc    Get all contact submissions (admin only - add auth later)
-// @route   GET /api/contact
-// @access  Private (should be admin)
 router.get("/", async (req, res) => {
   try {
     const contacts = await Contact.find().sort({ createdAt: -1 });
@@ -46,9 +39,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-// @desc    Mark contact as read
-// @route   PATCH /api/contact/:id/read
-// @access  Private (should be admin)
 router.patch("/:id/read", async (req, res) => {
   try {
     const contact = await Contact.findByIdAndUpdate(

@@ -7,9 +7,6 @@ const {
   HomeStat,
 } = require("../models/HomeData");
 
-// @desc    Get all special offers
-// @route   GET /api/home/offers
-// @access  Public
 const getOffers = async (req, res) => {
   try {
     const offers = await Offer.find({ isActive: true }).sort({ order: 1 });
@@ -19,9 +16,6 @@ const getOffers = async (req, res) => {
   }
 };
 
-// @desc    Get all promo codes
-// @route   GET /api/home/promo-codes
-// @access  Public
 const getPromoCodes = async (req, res) => {
   try {
     const promoCodes = await PromoCode.find({ isActive: true });
@@ -31,9 +25,6 @@ const getPromoCodes = async (req, res) => {
   }
 };
 
-// @desc    Validate a promo code
-// @route   POST /api/home/promo-codes/validate
-// @access  Public
 const validatePromoCode = async (req, res) => {
   try {
     const { code } = req.body;
@@ -51,12 +42,12 @@ const validatePromoCode = async (req, res) => {
       return res.status(404).json({ valid: false, message: "Invalid promo code" });
     }
 
-    // Check expiration
+
     if (promoCode.expiresAt && new Date() > promoCode.expiresAt) {
       return res.status(400).json({ valid: false, message: "Promo code has expired" });
     }
 
-    // Check usage limit
+
     if (promoCode.usageLimit && promoCode.usedCount >= promoCode.usageLimit) {
       return res.status(400).json({ valid: false, message: "Promo code usage limit reached" });
     }
@@ -72,9 +63,6 @@ const validatePromoCode = async (req, res) => {
   }
 };
 
-// @desc    Get all popular packages
-// @route   GET /api/home/popular-packages
-// @access  Public
 const getPopularPackages = async (req, res) => {
   try {
     const packages = await PopularPackage.find({ isActive: true }).sort({ order: 1 });
@@ -84,9 +72,6 @@ const getPopularPackages = async (req, res) => {
   }
 };
 
-// @desc    Get all transport services
-// @route   GET /api/home/transport-services
-// @access  Public
 const getTransportServices = async (req, res) => {
   try {
     const services = await TransportService.find({ isActive: true }).sort({ order: 1 });
@@ -96,9 +81,6 @@ const getTransportServices = async (req, res) => {
   }
 };
 
-// @desc    Get hero section data
-// @route   GET /api/home/hero
-// @access  Public
 const getHero = async (req, res) => {
   try {
     const hero = await Hero.findOne({ isActive: true });
@@ -108,9 +90,6 @@ const getHero = async (req, res) => {
   }
 };
 
-// @desc    Get home stats
-// @route   GET /api/home/stats
-// @access  Public
 const getHomeStats = async (req, res) => {
   try {
     const stats = await HomeStat.find().sort({ order: 1 });
@@ -120,9 +99,6 @@ const getHomeStats = async (req, res) => {
   }
 };
 
-// @desc    Get all home page data in one call
-// @route   GET /api/home
-// @access  Public
 const getAllHomeData = async (req, res) => {
   try {
     const [offers, promoCodes, popularPackages, transportServices, hero, stats] = await Promise.all([

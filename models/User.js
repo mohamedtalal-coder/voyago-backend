@@ -10,7 +10,7 @@ const userSchema = mongoose.Schema(
       maxlength: [50, "Name cannot exceed 50 characters"],
       validate: {
         validator: function(v) {
-          // Only allow letters, spaces, hyphens, and apostrophes
+
           return /^[a-zA-ZÀ-ÿ\u0600-\u06FF\s'-]+$/.test(v);
         },
         message: "Name contains invalid characters"
@@ -25,7 +25,6 @@ const userSchema = mongoose.Schema(
       maxlength: [254, "Email cannot exceed 254 characters"],
       validate: {
         validator: function(v) {
-          // RFC 5322 compliant email regex
           return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(v);
         },
         message: "Please enter a valid email address"
@@ -34,7 +33,7 @@ const userSchema = mongoose.Schema(
     password: {
       type: String,
       required: function () {
-        return !this.googleId; // Password is required if no Google ID
+        return !this.googleId;
       },
       minlength: [8, "Password must be at least 8 characters"],
       maxlength: [128, "Password cannot exceed 128 characters"],
@@ -42,7 +41,7 @@ const userSchema = mongoose.Schema(
     googleId: {
       type: String,
       required: false,
-      sparse: true, // Allow multiple null values but unique non-null values
+      sparse: true,
     },
     avatar: {
       type: String,

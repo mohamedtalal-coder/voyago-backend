@@ -1,9 +1,6 @@
 const router = require("express").Router();
 const Service = require("../models/Service");
 
-// @desc    Get all services
-// @route   GET /api/services
-// @access  Public
 router.get("/", async (req, res) => {
   try {
     const services = await Service.find();
@@ -13,9 +10,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-// @desc    Get single service by ID
-// @route   GET /api/services/:id
-// @access  Public
 router.get("/:id", async (req, res) => {
   try {
     const service = await Service.findById(req.params.id);

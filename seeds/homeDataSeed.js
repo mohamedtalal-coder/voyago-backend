@@ -2,8 +2,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const path = require("path");
 
-// Load env vars
-dotenv.config({ path: path.join(__dirname, "../.env") });
+dotenv.config({ path: path.join(__dirname, "../\.env") });
 
 const {
   Offer,
@@ -14,12 +13,8 @@ const {
   HomeStat,
 } = require("../models/HomeData");
 
-// MongoDB connection
 const MONGO_URI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/voyago";
 
-// ============ SEED DATA ============
-
-// Special Offers Data
 const offersData = [
   {
     key: "group",
@@ -56,7 +51,6 @@ const offersData = [
   },
 ];
 
-// Promo Codes Data
 const promoCodesData = [
   {
     code: "WELCOME10",
@@ -90,7 +84,6 @@ const promoCodesData = [
   },
 ];
 
-// Popular Packages Data (Service packages on home page)
 const popularPackagesData = [
   {
     key: "package1",
@@ -166,7 +159,6 @@ const popularPackagesData = [
   },
 ];
 
-// Transport Services Data
 const transportServicesData = [
   {
     key: "bike_rental",
@@ -206,7 +198,6 @@ const transportServicesData = [
   },
 ];
 
-// Hero Section Data
 const heroData = {
   titleKey: "home:heroTitle",
   subtitleKey: "home:heroSubtitle",
@@ -217,7 +208,6 @@ const heroData = {
   isActive: true,
 };
 
-// Home Stats Data
 const homeStatsData = [
   {
     key: "stat1",
@@ -244,8 +234,6 @@ const homeStatsData = [
     order: 4,
   },
 ];
-
-// ============ SEED FUNCTIONS ============
 
 const seedOffers = async () => {
   try {
@@ -319,7 +307,6 @@ const seedHomeStats = async () => {
   }
 };
 
-// Main seed function
 const seedAll = async () => {
   try {
     console.log("\n🌱 Starting Home Data Seed...\n");
@@ -337,7 +324,6 @@ const seedAll = async () => {
 
     console.log("\n🎉 All home data seeded successfully!\n");
 
-    // Display summary
     const summary = {
       offers: await Offer.countDocuments(),
       promoCodes: await PromoCode.countDocuments(),
@@ -363,5 +349,4 @@ const seedAll = async () => {
   }
 };
 
-// Run seed
 seedAll();
